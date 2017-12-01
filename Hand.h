@@ -21,6 +21,9 @@ public:
     void displayCards(int);
     void printHand();
     int sum();
+    int getCard(int);
+    bool hasBlackjack();
+    int probSum();
 };
 
 

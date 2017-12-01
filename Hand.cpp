@@ -35,6 +35,8 @@ void Hand::clearHand(){
     theHand.clear();
 }
 
+
+
 void Hand::displayCards(int value){
     //Some cards are displaying oddly, need to fix!
     //code a blacked out card
@@ -223,7 +225,31 @@ void Hand:: printHand(){
         //prints out the players hand.
         int value = *i;
         displayCards(value);
+        cout << "\n";
     }
+}
+
+int Hand:: probSum(){
+    int sum = 0;
+    int value = 0;
+    for(int i = 0; i < theHand.size(); i++){
+        value = theHand[i];
+        if(value != 1){
+            if(value == 11 || value == 12 || value == 13){
+                sum += 10;
+            }
+            else{
+                sum += value;
+            }
+        }
+    }
+    return sum;
+}
+
+int Hand:: getCard(int location){
+    int temp;
+    temp = theHand[location];
+    return temp;
 }
 
 int Hand::sum(){
@@ -259,4 +285,12 @@ int Hand::sum(){
         }
     }
     return sum;
+}
+
+bool Hand:: hasBlackjack(){
+    bool blackjack = false;
+    if(sum() == 21){
+        blackjack = true;
+    }
+    return blackjack;
 }
