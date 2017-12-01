@@ -47,11 +47,11 @@ void Instructions (){
     cout << "\tit is declared a push (tie).\n\n";
     
     //NEEDS TO BE FORMATTEDD!!!! VVV
-    cout << "\n Please note: this version of blackjack only allows splits of the same exact card value\n";
+    cout << "\tPlease note: this version of blackjack only allows splits of the same exact card value in the first round\n";
 }
 
 void youWon(){
-    cout << "\n CONGRATULATIONS! YOU WON!\n";
+    cout << "\nCONGRATULATIONS! YOU WON!\n";
 }
 
 void dealerWon(){
@@ -443,15 +443,12 @@ void playGame(){
 int main() {
     srand(time(NULL));
     
-
-    
-    
     initialMenu(); //menu 1 indicates: first menu.
     int choice = isItValid(2); //2 indicates number of choices
     if(choice == 1){
         Instructions();
     }
-    
+
     while(choice != 3){
         secondMenu();
         choice = isItValid(3); //3 indicates the number of choices
@@ -460,7 +457,4 @@ int main() {
             playGame();
         }
     }
-    
-    
-    
 }
