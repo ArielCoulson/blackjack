@@ -376,7 +376,7 @@ void playGame(){
             }
         }
         else if(splitHandBust && !playerHandBust){
-            cout << "\nYour second hand is: \n";
+            cout << "\nYour first hand is: \n";
             playerHand.printHand();
             
             cout << "\nThe dealers current hand is: \n";
@@ -390,7 +390,6 @@ void playGame(){
                 cout << "\nThis is the dealers current hand:\n";
                 dealerHand.printHand();
             }
-            
             if(dealerHand.sum() > 21){
                 bust();
                 youWon();
@@ -407,8 +406,37 @@ void playGame(){
                 youWon();
             }
         }
+        else if(!splitHandBust && playerHandBust){
+            cout << "\nYour first hand is: \n";
+            splitHand.printHand();
+            
+            cout << "\nThe dealers current hand is: \n";
+            splitHand.printHand();
+            
+            while(dealerHand.sum() < 17){
+                //must continue adding cards into the dealer hand, they must have a minimum of 17
+                cout << "\nSince the dealers hand is less than 17, the dealer will draw from the deck\n";
+                dealAndHit(tempDeck, dealerHand);
+                
+                cout << "\nThis is the dealers current hand:\n";
+                dealerHand.printHand();
+            }
+            if(dealerHand.sum() > 21){
+                bust();
+                youWon();
+            }
+            else if(dealerHand.sum() > splitHand.sum()){
+                dealerWon();
+            }
+            else if(dealerHand.sum() == splitHand.sum()){
+                //same score result
+                cout << "That's a draw.";
+            }
+            else{
+                youWon();
+            }
+        }
     }
-    
 }
 
 
