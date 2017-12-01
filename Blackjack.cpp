@@ -297,7 +297,7 @@ void playGame(){
         }
         else if(choice == 2){
             if(splitHappened && !firstSplitDone){
-                firstSplitDone == true;
+                firstSplitDone = true;
             }
         }
     }
@@ -335,6 +335,7 @@ void playGame(){
         }
     }
     else if(splitHappened){
+        //indicates a split happened
         if(!splitHandBust && !playerHandBust){
             //they both did not bust.
             cout << "\nYour first hand is: ";
@@ -354,6 +355,7 @@ void playGame(){
                 cout << "\nThis is the dealers current hand:\n";
                 dealerHand.printHand();
             }
+            
             if(dealerHand.sum() > 21){
                 bust();
                 youWon();
@@ -372,10 +374,38 @@ void playGame(){
             else{
                 youWon();
             }
+        }
+        else if(splitHandBust && !playerHandBust){
+            cout << "\nYour second hand is: \n";
+            playerHand.printHand();
             
+            cout << "\nThe dealers current hand is: \n";
+            dealerHand.printHand();
             
+            while(dealerHand.sum() < 17){
+                //must continue adding cards into the dealer hand, they must have a minimum of 17
+                cout << "\nSince the dealers hand is less than 17, the dealer will draw from the deck\n";
+                dealAndHit(tempDeck, dealerHand);
+                
+                cout << "\nThis is the dealers current hand:\n";
+                dealerHand.printHand();
+            }
             
-            //Finish coding the different results for split deck....
+            if(dealerHand.sum() > 21){
+                bust();
+                youWon();
+            }
+            
+            else if(dealerHand.sum() > playerHand.sum()){
+                dealerWon();
+            }
+            else if(dealerHand.sum() == playerHand.sum()){
+                //same score result
+                cout << "That's a draw.";
+            }
+            else{
+                youWon();
+            }
         }
     }
     
