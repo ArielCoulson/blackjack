@@ -19,6 +19,8 @@ public:
     void removeCard(int);
     void printDeck();
     void clearAndReset();
+    int getCard(int);
+    int deckSize();
 };
 
 

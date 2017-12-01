@@ -39,6 +39,17 @@ void Deck::clearAndReset(){
     }
 }
 
+int Deck::getCard(int location){
+    int temp;
+    temp = deck[location];
+    return temp;
+}
+
+int Deck::deckSize(){
+    int size = 0;
+    size = static_cast<int>(deck.size());
+    return size;
+}
 void Deck::printDeck(){
     for (vector<int>::const_iterator i = deck.begin(); i != deck.end(); ++i){
         //prints out the deck for rn.
