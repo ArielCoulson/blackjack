@@ -63,14 +63,13 @@ void Hand::displayCards(int value){
     
     
     if(value == 1){
-        line3 = "|        .         |";
-        line4 = "|       /\\        |";
-        line5 = "|      /  \\       |";
-        line6 = "|     /    \\      |";
-        line7 = "|    / _____\\     |";
-        line8 = "|   /        \\    |";
-        line9 = "|  /          \\   |";
-        
+        line3 = "|               |";
+        line4 = "|      /\\       |";
+        line5 = "|     /  \\      |";
+        line6 = "|    /    \\     |";
+        line7 = "|   / _____\\    |";
+        line8 = "|  /        \\   |";
+        line9 = "| /          \\  |";
         cardDisplay = line1 + "\n" + line2 + "\n" + line3 + "\n" + line4 + "\n" + line5 + "\n" + line6 + "\n" + line7 + "\n" + line8 + "\n" + line9 + "\n" + line11 + "\n" + line10;
     }
     
@@ -191,18 +190,19 @@ void Hand::displayCards(int value){
         line6 = "|   |       |   |";
         line7 = "|   |       |   |";
         line8 = "|   |_______|   |";
-        line9 = "|           \\     |";
+        line9 = "|           \\   |";
         
         cardDisplay = line1 + "\n" + line2 + "\n" + line3 + "\n" + line4 + "\n" + line5 + "\n" + line6 + "\n" + line7 + "\n" + line8 + "\n" + line9 + "\n" + line11 + "\n" + line10;
     }
     else  if(value == 13){
-        line3 = "|                 |";
-        line4 = "|   |       /     |";
-        line5 = "|   |      /      |";
-        line6 = "|   |    <        |";
-        line7 = "|   |     \\      |";
-        line8 = "|   |      \\     |";
-        line9 = "|   |       \\    |";
+        line3 = "|               |";
+        line4 = "|   |       /   |";
+        line5 = "|   |      /    |";
+        line6 = "|   |    <      |";
+        line7 = "|   |     \\     |";
+        line8 = "|   |      \\    |";
+        line9 = "|   |       \\   |";
+        
         
         cardDisplay = line1 + "\n" + line2 + "\n" + line3 + "\n" + line4 + "\n" + line5 + "\n" + line6 + "\n" + line7 + "\n" + line8 + "\n" + line9 + "\n" + line11 + "\n" + line10;
     }
