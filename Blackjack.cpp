@@ -149,14 +149,14 @@ void probability(Hand & playerHand, Hand & dealerHand, Deck & tempDeck){
     cout << "\nThis is the probability that you won't go over 21: " << probability << "%\n";
 }
 
-void splitHand(Hand & playerHand, Hand & splitHand){
+void splitHandTwo(Hand & playerHand, Hand & splitHand){
     cout << "\nYou have decided to split your deck";
-    splitPlayerHand.addCard(playerHand.getCard(1));
+    splitHand.addCard(playerHand.getCard(1));
     playerHand.removeCard();
     cout << "\nThis is hand number 1:\n";
-    printHand(playerHand);
+    playerHand.printHand();
     cout << "\nThis is hand number 2:\n";
-    printHand(splitPlayerHand);
+    splitHand.printHand();
 }
 
 void playGame(){
@@ -240,8 +240,9 @@ void playGame(){
         
         if(choice == 3){
             splitHappened = true;
-            splitHand(playerHand, splitHand);
+            splitHandTwo(playerHand, splitHand);
         }
+        
         else if(choice == 1 && !splitHappened){
             //indicates the player wants to hit; and they did not split their deck.
             dealAndHit(tempDeck, playerHand);
@@ -270,9 +271,9 @@ void playGame(){
                     playerHandBust = true;
                     firstSplitDone = true;
                 }
-                else if(playerHand.sum() = 21){
+                else if(playerHand.sum() == 21){
                     youWon();
-                    firstSplideDone = true;
+                    firstSplitDone = true;
                     playerHandBust = true;
                 }
             }
@@ -314,7 +315,7 @@ void playGame(){
             dealAndHit(tempDeck, dealerHand);
             
             cout << "\nThis is the dealers current hand:\n";
-            dealerHand.print();
+            dealerHand.printHand();
         }
         
         if(dealerHand.sum() > 21){
@@ -325,7 +326,7 @@ void playGame(){
         else if(dealerHand.sum() > playerHand.sum()){
             dealerWon();
         }
-        else if(sum(dealerHand) == sum(playerHand)){
+        else if(dealerHand.sum() == playerHand.sum()){
             //same score result
             cout << "That's a draw.";
         }
@@ -337,13 +338,13 @@ void playGame(){
         if(!splitHandBust && !playerHandBust){
             //they both did not bust.
             cout << "\nYour first hand is: ";
-            playerHand.print();
+            playerHand.printHand();
             
             cout << "\nYour second hand is: ";
-            splitHand.print();
+            splitHand.printHand();
             
             cout << "\nThis is the dealers current hand: ";
-            dealerHand.print();
+            dealerHand.printHand();
             
             while(dealerHand.sum() < 17){
                 //must continue adding cards into the dealer hand, they must have a minimum of 17
@@ -351,20 +352,20 @@ void playGame(){
                 dealAndHit(tempDeck, dealerHand);
                 
                 cout << "\nThis is the dealers current hand:\n";
-                dealerHand.print();
+                dealerHand.printHand();
             }
             if(dealerHand.sum() > 21){
                 bust();
                 youWon();
             }
             else if(playerHand.sum() > dealerHand.sum() && splitHand.sum() > dealerHand.sum()){
-                cout << "\nCongratulations, you won both hands!\n"
+                cout << "\nCongratulations, you won both hands!\n";
             }
             else if(dealerHand.sum() > playerHand.sum() && dealerHand.sum() > splitHand.sum()){
                 cout << "\nThe dealer has won both hands.\n";
             }
             //didnt code blackjack for splithands
-            else if(playerHand.sum() == dealerHand()){
+            else if(playerHand.sum() == dealerHand.sum()){
                 //same score result
                 cout << "That's a draw.";
             }
