@@ -242,6 +242,9 @@ int Hand:: probSum(){
                 sum += value;
             }
         }
+        else{
+            sum += 1;
+        }
     }
     return sum;
 }

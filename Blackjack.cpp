@@ -46,6 +46,8 @@ void Instructions (){
     cout << "\tIf the player and the Dealer both get 21\n";
     cout << "\tit is declared a push (tie).\n\n";
     
+    //ADD that when playing a computer the computers hand is hidden.
+    
     //NEEDS TO BE FORMATTEDD!!!! VVV
     cout << "\tPlease note: this version of blackjack only allows splits of the same exact card value in the first round\n";
 }
@@ -61,6 +63,7 @@ void dealerWon(){
 void bust(){
     cout << "\nThat's a bust!\n";
 }
+
 int isItValid(int menu){
     /*
      if input is valid, it returns the users menu choice.
@@ -113,7 +116,8 @@ void dealAndHit(Deck & tempDeck, Hand & currentHand){
     tempDeck.removeCard(location);
 }
 
-void probability(Hand & playerHand, Hand & dealerHand, Deck & tempDeck){
+
+double probability(Hand & playerHand, Hand & dealerHand, Deck & tempDeck){
     //calculating special sum for probability
     //automatically takes Aces as ones.
     
@@ -129,24 +133,48 @@ void probability(Hand & playerHand, Hand & dealerHand, Deck & tempDeck){
                 count++;
             }
         }
-        else if(tempDeck.getCard(i) == 1){
-            if((playerScore + 11) <= 21){
-                count++;
-            }
-            else if((playerScore + 1) <= 21){
-                count++;
-            }
-        }
         else if ((playerScore + tempDeck.getCard(i) <= 21)) {
             count++;
         }
     }
+    
     if (playerScore + dealerHand.getCard(1) <= 21) {
         //takes care of the hidden card, and adds it to the count.
         count++;
     }
+    
     probability = (count * 100) / (tempDeck.deckSize() + 1);
-    cout << "\nThis is the probability that you won't go over 21: " << probability << "%\n";
+    return probability;
+}
+
+
+int rockPaperScissors(int aiChoice, int humanChoice){
+    /*
+     1. Rock 
+     2. Paper 
+     3. Scissors
+     */
+    
+    int whoWon = 0;
+    //1: Ai, 2: Human
+    
+    
+    if(aiChoice == humanChoice){
+        cout << "\nA tie has occured. Please try again.\n";
+        return 0;
+    }
+    
+    else if(aiChoice == 1 && humanChoice == 2){
+        cout << "\nThe computer has chosen Rock and you have chosen ";
+        whoWon = 2;
+    }
+    else if(aiChoice == 2 && humanChoice == 1){
+        whoWon = 1;
+    }
+    else if(aiChoice == 2 && humanChoice == 3){
+        whoWon = 2;
+    }
+    return whoWon;
 }
 
 void splitHandTwo(Hand & playerHand, Hand & splitHand){
@@ -206,7 +234,7 @@ void playGame(){
     bool firstSplitDone = false; //false indicates that they have not busted or stopped hitting first deck;
     bool playerHandBust = false; //false indicates that first deck is not a bust
     bool splitHandBust = false; //false indicates the split deck is not a bust.
-    
+    double prob;
     int choice = 0;
     while(choice != 2){
         cout << "\nSelect the value for your next move:";
@@ -217,6 +245,8 @@ void playGame(){
         if(playerHand.getCard(0) == playerHand.getCard(1) && !splitHappened){
             //a split has not occured. player has option to split or not.
             cout << "\n3. Split";
+            prob = probability(playerHand, dealerHand, tempDeck);
+            cout << "\nThis is the probability you wont go over " << prob << "%\n";
             probability(playerHand, dealerHand, tempDeck);
             choice = isItValid(3);
         }
@@ -224,19 +254,24 @@ void playGame(){
             //this current hand has no split!
             if(splitHappened && !firstSplitDone){
                 //gives you the probability of your second hand.
-                probability(playerHand, dealerHand, tempDeck);
+                prob = probability(playerHand, dealerHand, tempDeck);
+                cout << "\nThis is the probability you wont go over " << prob << "%\n";
             }
             else if(splitHappened && firstSplitDone){
                 //gives you the probability of your second hand.
-                probability(splitHand, dealerHand, tempDeck);
+                prob = probability(splitHand, dealerHand, tempDeck);
+                 cout << "\nThis is the probability you wont go over " << prob << "%\n";
             }
             else{
                 //gives you the probability of your only hand.
-                probability(playerHand, dealerHand, tempDeck);
+                prob = probability(playerHand, dealerHand, tempDeck);
+                cout << "\nThis is the probability you wont go over " << prob << "%\n";
             }
             choice = isItValid(2);
         }
         
+        tempDeck.printDeck();
+        cout << tempDeck.deckSize();
         
         if(choice == 3){
             splitHappened = true;
@@ -441,6 +476,7 @@ void playGame(){
 
 
 int main() {
+    
     srand(time(NULL));
     
     initialMenu(); //menu 1 indicates: first menu.
