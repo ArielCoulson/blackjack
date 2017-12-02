@@ -181,14 +181,15 @@ void displayWin(){
     
 }
 
-
+/*
 int rockPaperScissors(int aiChoice, int humanChoice){
-    /*
+    //
      1. Rock 
      2. Paper 
      3. Scissors
-     */
+     //
     
+    //not sure if we are going to do this yet. 
     int whoWon = 0;
     //1: Ai, 2: Human
     
@@ -210,6 +211,7 @@ int rockPaperScissors(int aiChoice, int humanChoice){
     }
     return whoWon;
 }
+*/
 
 void splitHandTwo(Hand & playerHand, Hand & splitHand){
     cout << "\nYou have decided to split your deck";
