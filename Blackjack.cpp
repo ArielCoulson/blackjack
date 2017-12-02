@@ -148,6 +148,40 @@ double probability(Hand & playerHand, Hand & dealerHand, Deck & tempDeck){
 }
 
 
+void displayWin(){
+    string cardDisplay = "";
+    
+    
+    
+    int  value = 1;
+    string line1 ="\n\n         _ _ _ _ ___ ___ _ _ _ ___ _ _ _________\n";
+    string line2 = "        |A|Q|1|5|4  |7  |J|1|9|7  |A|K|2        |\n";
+    string line3 ="        |@|@|@|@|@  |## |O|O|O|OO |+|+|+        |\n";
+    string line4="        | | | | | @ |   | | | |   | | |    +    |\n";
+    string line5="        | | | | |   | # | | | | O | | |         |\n";
+    string line6="        | | | | | @ |   | | | |   | | |    +    |\n";
+    string line7="        | | | | |   | # | | | | O | | |        +|\n";
+    string line8="        | | | | |   |   | | | |   | | |        Z|\n";
+    string line9="         ~ ~ ~ ~ ~~~ ~~~ ~ ~ ~ ~~~ ~ ~ ~~~~~~~~~\n";
+    
+    cardDisplay = line1 + line2+line3+line4+line5+line6+line7+line8+line9;
+    cout<<cardDisplay;
+    
+    line1=" \n\n .-:.     ::-.    ...      ...    :::    .::    .   .:::::::::.    :::.     .:\n";
+    line2="  ';;.   ;;;;' .;;;;;;;.   ;;     ;;;    ';;,  ;;  ;;;' ;;;`;;;;,  `;;;    ;;;\n";
+    line3="   '[[,[[['  ,[[     [[[,[['     [[[     '[[, [[, [['  [[[  [[[[[. '[[    '[[\n";
+    line4="     c$$     $$$,     $$$$$      $$$       Y$c$$$c$P   $$$  $$$  Y$c$$     $$\n";
+    line5="   ,8PP`     8888,_ _,88P88    .d888        8888888    888  888    Y88     ;;\n";
+    line6="  mMM          YYMMMMMPP  YYmmMMMMMM        MM MMM     MMM  MMM     YM     MM\n\n";
+    
+    cardDisplay="";
+    cardDisplay=line1+line2+line3+line5+line5+line6;
+    
+    cout<<cardDisplay;
+    
+}
+
+
 int rockPaperScissors(int aiChoice, int humanChoice){
     /*
      1. Rock 
@@ -286,6 +320,8 @@ void playGame(){
             playerHand.printHand();
             if(playerHand.hasBlackjack()){
                 youWon();
+                //added this
+                displayWin();
                 return;
             }
             else if(playerHand.sum() > 21){
@@ -308,6 +344,8 @@ void playGame(){
                 }
                 else if(playerHand.sum() == 21){
                     youWon();
+                    //added this
+                    displayWin();
                     firstSplitDone = true;
                     playerHandBust = true;
                 }
@@ -325,6 +363,7 @@ void playGame(){
                     splitHandBust = true;
                 }
                 else if(splitHand.sum() == 21){
+                    displayWin();
                     youWon();
                     splitHandBust = true;
                 }
@@ -355,9 +394,10 @@ void playGame(){
         
         if(dealerHand.sum() > 21){
             bust();
-            youWon();
+            //youWon();
+            //added this.
+            displayWin();
         }
-
         else if(dealerHand.sum() > playerHand.sum()){
             dealerWon();
         }
@@ -393,7 +433,8 @@ void playGame(){
             
             if(dealerHand.sum() > 21){
                 bust();
-                youWon();
+                displayWin();
+                //youWon();
             }
             else if(playerHand.sum() > dealerHand.sum() && splitHand.sum() > dealerHand.sum()){
                 cout << "\nCongratulations, you won both hands!\n";
@@ -407,7 +448,8 @@ void playGame(){
                 cout << "That's a draw.";
             }
             else{
-                youWon();
+                displayWin();
+                //youWon();
             }
         }
         else if(splitHandBust && !playerHandBust){
@@ -427,7 +469,8 @@ void playGame(){
             }
             if(dealerHand.sum() > 21){
                 bust();
-                youWon();
+                displayWin();
+                //youWon();
             }
             
             else if(dealerHand.sum() > playerHand.sum()){
@@ -438,7 +481,8 @@ void playGame(){
                 cout << "That's a draw.";
             }
             else{
-                youWon();
+                displayWin();
+                //youWon();
             }
         }
         else if(!splitHandBust && playerHandBust){
@@ -458,7 +502,8 @@ void playGame(){
             }
             if(dealerHand.sum() > 21){
                 bust();
-                youWon();
+                displayWin();
+                //youWon();
             }
             else if(dealerHand.sum() > splitHand.sum()){
                 dealerWon();
@@ -468,7 +513,8 @@ void playGame(){
                 cout << "That's a draw.";
             }
             else{
-                youWon();
+                displayWin();
+                //youWon();
             }
         }
     }
