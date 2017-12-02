@@ -304,8 +304,6 @@ void playGame(){
             choice = isItValid(2);
         }
         
-        tempDeck.printDeck();
-        cout << tempDeck.deckSize();
         
         if(choice == 3){
             splitHappened = true;
