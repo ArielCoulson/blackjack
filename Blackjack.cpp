@@ -331,7 +331,7 @@ void playGame(){
             cout << "\n3. Split";
             
             prob = probability(playerHand, dealerHand, tempDeck);
-            cout << "This is the probability of your current deck not going over 21: " << prob;
+            cout << "\nThis is the probability of your current deck not going over 21: " << prob;
             choice = isItValid(3);
         }
         else{
@@ -339,17 +339,17 @@ void playGame(){
             if(splitHappened && !firstSplitDone){
                 //gives you the probability of your second hand.
                 prob = probability(playerHand, dealerHand, tempDeck);
-                cout << "This is the probability of your current deck not going over 21: " << prob;
+                cout << "\nThis is the probability of your current deck not going over 21: " << prob;
             }
             else if(splitHappened && firstSplitDone){
                 //gives you the probability of your second hand.
                 prob = probability(splitHand, dealerHand, tempDeck);
-                cout << "This is the probability of your current deck not going over 21: " << prob;
+                cout << "\nThis is the probability of your current deck not going over 21: " << prob;
             }
             else{
                 //gives you the probability of your only hand.
                 prob = probability(playerHand, dealerHand, tempDeck);
-                cout << "This is the probability of your current deck not going over 21: " << prob;
+                cout << "\nThis is the probability of your current deck not going over 21: " << prob;
             }
         choice = isItValid(2);
         }
