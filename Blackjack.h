@@ -13,11 +13,14 @@
 #endif /* Blackjack_h */
 
 void displayWelcome();
+void computerWon();
 void initialMenu();
 void secondMenu();
 void Instructions();
 void dealerWon();
 void bust();
+void draw();
+void dealerWon();
 int isItValid(int);
 int randomLocation(int);
 void dealAndHit(Deck&, Hand&);
@@ -25,5 +28,6 @@ double probability(Hand&, Hand&, Deck&);
 void displayWin();
 void messagePrintHand(int, Hand&);
 void splitHandTwo(Hand&, Hand&);
+bool blackjackFirst(Hand &, Hand &, Hand &);
 void playGame();
 void playGameAI();
