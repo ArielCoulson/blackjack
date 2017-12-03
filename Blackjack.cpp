@@ -59,7 +59,6 @@ void secondMenu(){
     cout <<"\n3. I would like to exit.";
 }
 
-
 void Instructions (){
     cout << "\tGoal: Reach 21 without going over.\n\n";
     cout << "\tThe Dealer (computer player) will be playing against you.\n\n";
@@ -88,6 +87,7 @@ void Instructions (){
 void bust(){
     cout << "\nThat's a bust!\n";
 }
+
 void draw(){
     cout << "\nThat's a draw!\n";
 }
@@ -722,6 +722,7 @@ void playGameAI(){
     }
     
     if(dealerHand.sum() > 21){
+        bust();
         //dealer has busted, only between player and computer
         if(playerBust){
             //auto win for computer, since player busted
