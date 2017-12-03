@@ -76,7 +76,13 @@ void Instructions (){
     //ADD that when playing a computer the computers hand is hidden.
     
     //NEEDS TO BE FORMATTEDD!!!! VVV
-    cout << "\tPlease note: this version of blackjack only allows splits of the same exact card value in the first round\n";
+    cout << "\tSplit Rules:\n";
+    cout << "\tWe only allow splits if the cards are the exact same value during a single player game.\n";
+    
+    cout << "\n\tComputer Game: \n";
+    cout << "\t1. The computer will automatically go first.\n";
+    cout << "\t2. If there isn't a complete draw or bust. There will only be one winner: dealer, computer, or you.\n";
+    cout << "\t3. The computer game will not allow splits.\n";
 }
 
 void bust(){
@@ -281,8 +287,8 @@ void playGame(){
         number++;
     }
     
-    cout << "\nThe two cards the dealer has dealt you are :\n";
-    playerHand.printHand();
+    messagePrintHand(1, playerHand);
+    
     if(playerHand.hasBlackjack() && !(dealerHand.hasBlackjack())){
         //may be want to reveal dealers hand too to show that they dont have blackjack??
         displayWin();
@@ -350,8 +356,8 @@ void playGame(){
             //indicates the player wants to hit; and they did not split their deck.
             dealAndHit(tempDeck, playerHand);
             
-            cout << "\nThis is your current hand: \n";
-            playerHand.printHand();
+            messagePrintHand(1, playerHand);
+            
             if(playerHand.hasBlackjack()){
                 dealerWon();
                 return;
@@ -366,8 +372,9 @@ void playGame(){
             //indicates that the player wants to hit, and there has been a split
             if(!firstSplitDone){
                 dealAndHit(tempDeck, playerHand);
-                cout << "\nThis is the hand of your first split deck: ";
-                playerHand.printHand();
+                messagePrintHand(4, playerHand);
+                
+                ;
                 if(playerHand.sum() > 21){
                     bust();
                     cout << "\nNow we will work with your other split deck";
@@ -382,7 +389,9 @@ void playGame(){
             }
             else if(firstSplitDone){
                 dealAndHit(tempDeck, splitHand);
-                cout << "\nThis is the hand of your second split deck: ";
+                messagePrintHand(5, splitHand);
+                
+                
                 if(splitHand.sum() > 21){
                     bust();
                     if(playerHandBust){
@@ -407,19 +416,15 @@ void playGame(){
     }
     
     if(!splitHappened){
-        cout << "\nYour final hand is: \n";
-        playerHand.printHand();
-        
-        cout << "\nThe dealers current hand is: \n";
-        dealerHand.printHand();
+        messagePrintHand(1, playerHand);
+        messagePrintHand(2, dealerHand);
         
         while(dealerHand.sum() < 17){
             //must continue adding cards into the dealer hand, they must have a minimum of 17
             cout << "\nSince the dealers hand is less than 17, the dealer will draw from the deck\n";
             dealAndHit(tempDeck, dealerHand);
             
-            cout << "\nThis is the dealers current hand:\n";
-            dealerHand.printHand();
+            messagePrintHand(2, dealerHand);
         }
         
         if(dealerHand.sum() > 21){
@@ -442,22 +447,18 @@ void playGame(){
         //indicates a split happened
         if(!splitHandBust && !playerHandBust){
             //they both did not bust.
-            cout << "\nYour first hand is: ";
-            playerHand.printHand();
+            messagePrintHand(4, playerHand);
+        
+            messagePrintHand(5, splitHand);
             
-            cout << "\nYour second hand is: ";
-            splitHand.printHand();
-            
-            cout << "\nThis is the dealers current hand: ";
-            dealerHand.printHand();
+            messagePrintHand(2, dealerHand);
             
             while(dealerHand.sum() < 17){
                 //must continue adding cards into the dealer hand, they must have a minimum of 17
                 cout << "\nSince the dealers hand is less than 17, the dealer will draw from the deck\n";
                 dealAndHit(tempDeck, dealerHand);
                 
-                cout << "\nThis is the dealers current hand:\n";
-                dealerHand.printHand();
+                messagePrintHand(2, dealerHand);
             }
             
             if(dealerHand.sum() > 21){
@@ -486,19 +487,16 @@ void playGame(){
             }
         }
         else if(splitHandBust && !playerHandBust){
-            cout << "\nYour first hand is: \n";
-            playerHand.printHand();
+            messagePrintHand(4, playerHand);
             
-            cout << "\nThe dealers current hand is: \n";
-            dealerHand.printHand();
+            messagePrintHand(2, dealerHand);
             
             while(dealerHand.sum() < 17){
                 //must continue adding cards into the dealer hand, they must have a minimum of 17
                 cout << "\nSince the dealers hand is less than 17, the dealer will draw from the deck\n";
                 dealAndHit(tempDeck, dealerHand);
                 
-                cout << "\nThis is the dealers current hand:\n";
-                dealerHand.printHand();
+                messagePrintHand(2, dealerHand);
             }
             if(dealerHand.sum() > 21){
                 bust();
@@ -517,19 +515,16 @@ void playGame(){
             }
         }
         else if(!splitHandBust && playerHandBust){
-            cout << "\nYour first hand is: \n";
-            splitHand.printHand();
+            messagePrintHand(5, splitHand);
             
-            cout << "\nThe dealers current hand is: \n";
-            splitHand.printHand();
+            messagePrintHand(2, dealerHand);
             
             while(dealerHand.sum() < 17){
                 //must continue adding cards into the dealer hand, they must have a minimum of 17
                 cout << "\nSince the dealers hand is less than 17, the dealer will draw from the deck\n";
                 dealAndHit(tempDeck, dealerHand);
                 
-                cout << "\nThis is the dealers current hand:\n";
-                dealerHand.printHand();
+                messagePrintHand(2, dealerHand);
             }
             if(dealerHand.sum() > 21){
                 bust();
@@ -840,8 +835,10 @@ void playGameAI(){
 int main() {
     srand(time(NULL));
     displayWelcome();
-    initialMenu(); //menu 1 indicates: first menu.
-    int menuChoice = isItValid(2); //2 indicates number of choices
+    initialMenu();
+    //menu 1 indicates: first menu.
+    int menuChoice = isItValid(2);
+    //2 indicates number of choices
     if(menuChoice == 1){
         Instructions();
     }
