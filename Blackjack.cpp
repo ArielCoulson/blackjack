@@ -664,6 +664,8 @@ void playGameAI(){
     }
     //The code for the computer hitting/staying has ended.
     
+    cout << "\nReminder this is your hand: \n";
+    playerHand.printHand();
     int choice = 0;
     while(choice!=2){
         cout << "\nSelect the value for your next move: ";
@@ -697,6 +699,7 @@ void playGameAI(){
             }
             else if(playerHand.sum() > 21){
                 choice = 2;
+                bust();
                 playerBust = true;
                 if(computerHand.hasBlackjack()){
                     computerWon();
@@ -837,9 +840,8 @@ void playGameAI(){
     }
 }
 
-
 int main() {
-    srand(time(NULL));
+    srand(static_cast<unsigned int>(time(NULL)));
     displayWelcome();
     initialMenu();
     //menu 1 indicates: first menu.
