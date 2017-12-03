@@ -291,6 +291,9 @@ void playGame(){
     cout << "\nThe dealer has two cards. One is faced down, this is the other:\n";
     int tempCard = dealerHand.getCard(0);
     dealerHand.displayCards(tempCard);
+    cout << "\n";
+    dealerHand.displayCards(0);
+    
     if(tempCard == 1 || tempCard >= 10){
         //dealer automatically checks for black jack w/ an ace or cards value 10.
         cout << "\nThe dealer is now checking to see if they have blackjack.\n";
@@ -299,7 +302,7 @@ void playGame(){
             return;
         }
         else{
-            cout << "\n The dealer does not have blackjack. You may continue playing.\n";
+            cout << "\nThe dealer does not have blackjack. You may continue playing.\n";
         }
     }
     
