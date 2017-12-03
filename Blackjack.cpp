@@ -70,7 +70,7 @@ void Instructions (){
     cout << "\tIf a player gets 21 and the Dealer doesn't\n";
     cout << "\tthe player is a winner.\n\n";
     cout << "\tIf the player and the Dealer both get 21\n";
-    cout << "\tit is declared a push (tie).\n\n";
+    cout << "\tit is declared a draw (tie).\n\n";
     
     //ADD that when playing a computer the computers hand is hidden.
     
@@ -318,7 +318,7 @@ void playGame(){
     bool firstSplitDone = false; //false indicates that they have not busted or stopped hitting first deck;
     bool playerHandBust = false; //false indicates that first deck is not a bust
     bool splitHandBust = false; //false indicates the split deck is not a bust.
-    
+    int prob = 0;
     int choice = 0;
     while(choice != 2){
         cout << "\nSelect the value for your next move:";
@@ -329,24 +329,29 @@ void playGame(){
         if(playerHand.getCard(0) == playerHand.getCard(1) && !splitHappened){
             //a split has not occured. player has option to split or not.
             cout << "\n3. Split";
-            probability(playerHand, dealerHand, tempDeck);
+            
+            prob = probability(playerHand, dealerHand, tempDeck);
+            cout << "This is the probability of your current deck not going over 21: " << prob;
             choice = isItValid(3);
         }
         else{
             //this current hand has no split!
             if(splitHappened && !firstSplitDone){
                 //gives you the probability of your second hand.
-                probability(playerHand, dealerHand, tempDeck);
+                prob = probability(playerHand, dealerHand, tempDeck);
+                cout << "This is the probability of your current deck not going over 21: " << prob;
             }
             else if(splitHappened && firstSplitDone){
                 //gives you the probability of your second hand.
-                probability(splitHand, dealerHand, tempDeck);
+                prob = probability(splitHand, dealerHand, tempDeck);
+                cout << "This is the probability of your current deck not going over 21: " << prob;
             }
             else{
                 //gives you the probability of your only hand.
-                probability(playerHand, dealerHand, tempDeck);
+                prob = probability(playerHand, dealerHand, tempDeck);
+                cout << "This is the probability of your current deck not going over 21: " << prob;
             }
-            choice = isItValid(2);
+        choice = isItValid(2);
         }
         if(choice == 3){
             splitHappened = true;
@@ -359,7 +364,7 @@ void playGame(){
             messagePrintHand(1, playerHand);
             
             if(playerHand.hasBlackjack()){
-                dealerWon();
+                displayWin();
                 return;
             }
             else if(playerHand.sum() > 21){
@@ -641,7 +646,7 @@ void playGameAI(){
     
     //The following code has to do with the computer hitting/staying.
     cout << "\nThe AI will be going first.";
-    while(probability(computerHand, dealerHand, tempDeck) >= 50 && computerHand.sum() <= 18){
+    while((probability(computerHand, dealerHand, tempDeck) >= 50 && computerHand.sum() <= 18) || computerHand.sum() < playerHand.sum()){
         //is this really the best choice? if the computers sum is less than 17, then its highly likely to lose.
         cout << "\nThe AI has decided to hit.\n";
         dealAndHit(tempDeck, computerHand);
@@ -694,7 +699,7 @@ void playGameAI(){
                 choice = 2;
                 playerBust = true;
                 if(computerHand.hasBlackjack()){
-                    cout << "\nThe computer wins this round.\n";
+                    computerWon();
                     return;
                 }
                 else if(computerBust){
