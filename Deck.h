@@ -2,8 +2,7 @@
 //  deck.h
 //  testing
 //
-//  Created by Ariel Coulson on 11/30/17.
-//  Copyright © 2017 Ariel. All rights reserved.
+//Group 19!
 //
 
 #ifndef Deck_h
