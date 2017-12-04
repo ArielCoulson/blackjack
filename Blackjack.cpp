@@ -383,11 +383,13 @@ void playGame(){
                     cout << "\nNow we will work with your other split deck";
                     playerHandBust = true;
                     firstSplitDone = true;
+                    messagePrintHand(5, splitHand);
                 }
                 else if(playerHand.sum() == 21){
                     displayWin();
                     firstSplitDone = true;
                     playerHandBust = true;
+                    messagePrintHand(5, splitHand);
                 }
             }
             else if(firstSplitDone){
@@ -416,6 +418,7 @@ void playGame(){
             if(splitHappened && !firstSplitDone){
                 firstSplitDone = true;
                 choice = 0;
+                messagePrintHand(5, splitHand);
             }
         }
     }
