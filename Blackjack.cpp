@@ -72,7 +72,7 @@ void Instructions (){
     cout << "\tit is declared a draw (tie).\n\n";
     
     //ADD that when playing a computer the computers hand is hidden.
-    
+
     //NEEDS TO BE FORMATTEDD!!!! VVV
     cout << "\tSplit Rules:\n";
     cout << "\tWe only allow splits if the cards are the exact same value during a single player game.\n";
@@ -350,8 +350,9 @@ void playGame(){
                 prob = probability(playerHand, dealerHand, tempDeck);
                 cout << "\nThis is the probability of your current deck not going over 21: " << prob << "%";
             }
-        choice = isItValid(2);
+            choice = isItValid(2);
         }
+        
         if(choice == 3){
             splitHappened = true;
             splitHandTwo(playerHand, splitHand);
@@ -377,8 +378,6 @@ void playGame(){
             if(!firstSplitDone){
                 dealAndHit(tempDeck, playerHand);
                 messagePrintHand(4, playerHand);
-                
-                ;
                 if(playerHand.sum() > 21){
                     bust();
                     cout << "\nNow we will work with your other split deck";
@@ -403,6 +402,7 @@ void playGame(){
                         dealerWon();
                         return;
                     }
+                    choice = 2;
                     splitHandBust = true;
                 }
                 else if(splitHand.sum() == 21){
@@ -411,6 +411,7 @@ void playGame(){
                 }
             }
         }
+        
         else if(choice == 2){
             if(splitHappened && !firstSplitDone){
                 firstSplitDone = true;
@@ -468,26 +469,46 @@ void playGame(){
             if(dealerHand.sum() > 21){
                 bust();
                 displayWin();
+                return;
+            }
+            else if(dealerHand.sum() == 21){
+                if(!playerHandBust && !splitHandBust){
+                //they both did not bust
+                    dealerWon();
+                    return;
+                }
+                else{
+                    dealerWon();
+                    return;
+                }
             }
             else if(playerHand.sum() > dealerHand.sum() && splitHand.sum() > dealerHand.sum()){
                 cout << "\nCongratulations, you won both hands!\n";
+                return;
             }
             else if(dealerHand.sum() > playerHand.sum() && dealerHand.sum() > splitHand.sum()){
                 cout << "\nThe dealer has won both hands.\n";
+                return;
             }
             //didnt code blackjack for splithands
-            else if((dealerHand.sum() > playerHand.sum()) && !(dealerHand.sum() > splitHand.sum())){
-                cout << "\nThe dealer beat this hand:" << endl;
-                playerHand.printHand();
-                cout << "\n however, you beat him with this hand:" << endl;
+            else if((dealerHand.sum() >= playerHand.sum()) && dealerHand.sum() < splitHand.sum()){
+                cout << "\nYou beat the dealer with this hand:\n" << endl;
                 splitHand.printHand();
+                return;
             }
-            else if(playerHand.sum() == dealerHand.sum()){
+            else if(dealerHand.sum() >= splitHand.sum() && dealerHand.sum() < playerHand.sum()){
+                cout << "\nYou beat the dealer with this hand: \n" << endl;
+                playerHand.printHand();
+                return;
+            }
+            else if(playerHand.sum() == dealerHand.sum() || splitHand.sum() == dealerHand.sum()){
                 //same score result
                 cout << "That's a draw.";
+                return;
             }
             else{
                 displayWin();
+                return;
             }
         }
         else if(splitHandBust && !playerHandBust){
@@ -505,14 +526,14 @@ void playGame(){
             if(dealerHand.sum() > 21){
                 bust();
                 displayWin();
+                return;
             }
-            
             else if(dealerHand.sum() > playerHand.sum()){
                 dealerWon();
             }
             else if(dealerHand.sum() == playerHand.sum()){
                 //same score result
-                cout << "That's a draw.";
+                draw();
             }
             else{
                 displayWin();
