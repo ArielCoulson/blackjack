@@ -167,6 +167,10 @@ void messagePrintHand(int who, Hand & theHand){
         cout << "\nThis is the player's first split hand: \n";
         theHand.printHand();
     }
+    else if(who == 5){
+        cout << "\nThis is the player's second split hand:\n";
+        theHand.printHand();
+    }
 }
 
 
@@ -394,6 +398,7 @@ void playGame(){
             }
             else if(firstSplitDone){
                 dealAndHit(tempDeck, splitHand);
+                
                 messagePrintHand(5, splitHand);
                 
                 
