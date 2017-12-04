@@ -323,19 +323,21 @@ void playGame(){
     bool splitHandBust = false; //false indicates the split deck is not a bust.
     int prob = 0;
     int choice = 0;
+    int firstTurn = 0;
     while(choice != 2){
         cout << "\nSelect the value for your next move:";
         cout << "\n1. Hit";
         cout << "\n2. Stay";
         
         //checks for valid input, as well as decides if the player needs option for a split
-        if(playerHand.getCard(0) == playerHand.getCard(1) && !splitHappened){
+        if(playerHand.getCard(0) == playerHand.getCard(1) && !splitHappened && firstTurn == 0){
             //a split has not occured. player has option to split or not.
             cout << "\n3. Split";
             
             prob = probability(playerHand, dealerHand, tempDeck);
             cout << "\nThis is the probability of your current deck not going over 21: " << prob << "%";
             choice = isItValid(3);
+            firstTurn = 1;
         }
         else{
             //this current hand has no split!
