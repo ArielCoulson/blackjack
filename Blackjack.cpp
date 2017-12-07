@@ -417,6 +417,9 @@ void playGame(){
                 else if(splitHand.sum() == 21){
                     displayWin();
                     splitHandBust = true;
+                    if(playerHandBust){
+                        return;
+                    }
                 }
             }
         }
